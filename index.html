@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>聊天机器人</h2>
+    <input class="message" type="text" placeholder="请输入想跟机器人说什么">
+    <br>
+    <input class="send" type="button" value="发送">
+</body>
+
+</html>
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script>
+    /*
+    */
+    // document.querySelector('.send').onclick = function () {
+    //     // 获取 输入的内容
+    //     var inputMessage = document.querySelector('.message').value;
+
+    //     // 创建p标签
+    //     var selfP = document.createElement('p');
+    //     // 设置内容
+    //     selfP.innerHTML = inputMessage;
+    //     selfP.style.backgroundColor = 'hotpink';
+    //     // 添加到页面上
+    //     document.body.appendChild(selfP);
+
+    // 创建ajax对象
+    // var ajax = new XMLHttpRequest();
+    // // 设置请求行
+    // ajax.open('post', 'http://www.tuling123.com/openapi/api');
+    // // 设置请求头
+    // ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // // 注册回调函数
+    // ajax.onload = function () {
+    //     // console.log(ajax.responseText);
+    //     // 转化为好用的js对象了
+    //     var data = JSON.parse(ajax.responseText);
+    //     // console.log(data);
+    //     console.log(data.text);
+    //     // 创建机器人的p标签
+    //     // 创建p标签
+    //     var robotP = document.createElement('p');
+    //     // 设置内容
+    //     robotP.innerHTML = data.text;
+    //     robotP.style.backgroundColor = 'skyblue';
+    //     // 添加到页面上
+    //     document.body.appendChild(robotP);
+    // }
+    // // 设置请求主体
+    // ajax.send('key=7b1cf467c0394dd5b3e49f32663f8b29&info=' + inputMessage);
+    // }
+
+    // 绑定点击事件
+    $(function () {
+        $('.send').click(function () {
+            // 获取 输入的内容
+            var inputMessage = $('.message').val();
+
+            // 创建p标签
+            // 设置内容
+            // 添加到页面上
+            $('<p style="background:skyblue">' + inputMessage + '</p>').appendTo('body');
+
+            // ajax聊天
+            $.post({
+                url: 'http://www.tuling123.com/openapi/api',
+                data: {
+                    key: '7b1cf467c0394dd5b3e49f32663f8b29',
+                    info: inputMessage
+                },
+                success: function (backData) {
+                    console.log(backData);
+                    $('<p style="background:hotpink">'+backData.text+'</p>').appendTo('body');
+
+                }
+            })
+        })
+    })
+</script>
